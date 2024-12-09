@@ -28,11 +28,15 @@ def main():
     # Set the containers for the Player class
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteriods, updatable, drawable)
+    AsteroidField.containers = (updatable,)
 
     # Instantiate a player object
     x_pos = SCREEN_WIDTH / 2
     y_pos = SCREEN_HEIGHT / 2
     player = Player(x=x_pos, y=y_pos)
+
+    # Create a new Asteroid Field
+    asteroid_field = AsteroidField()
 
     # Set up the game loop
     while True:
