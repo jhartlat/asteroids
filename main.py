@@ -18,6 +18,13 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    # Set up the groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # Set the containers for the Player class
+    Player.containers = (updatable, drawable)
+
     # Instantiate a player object
     x_pos = SCREEN_WIDTH / 2
     y_pos = SCREEN_HEIGHT / 2
@@ -32,18 +39,19 @@ def main():
         # Clear the screen
         pygame.Surface.fill(screen, 'black')
 
-        # Draw the triangle
-        player.draw(screen)
+        # Iterate over all updatable objects
+        for sprite in updatable:
+            sprite.update(dt)
 
-        # Rotate the triangle
-        player.update(dt)
-
-        # Convert delta_time from miliseconds to seconds
-        dt = clock.tick(60) / 1000
+        # Iterate over all drawable objects
+        for sprite in drawable:
+            sprite.draw(screen)
 
         # Update the display
         pygame.display.flip()
 
+        # Convert delta_time from miliseconds to seconds
+        dt = clock.tick(60) / 1000
 
 
 if __name__ == "__main__":
