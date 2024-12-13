@@ -5,10 +5,12 @@ from shot import Shot
 class Player(CircleShape):
 
     containers = None
+    shoot_cooldown_timer = 0
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
+        self.shoot_cooldown_timer = 0
 
 
     def triangle(self):
@@ -42,6 +44,10 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             self.shoot()
 
+        # Decrease the cooldown timer
+        if self.shoot_cooldown_timer > 0:
+            self.shoot_cooldown_timer -= dt
+
 
 
     def rotate(self, dt):
@@ -53,6 +59,10 @@ class Player(CircleShape):
         self.position += forward * PLAYER_SPEED * dt
 
     def shoot(self):
+        # Check if cooldown timer allows shooting
+        if self.shoot_cooldown_timer > 0:
+            return
+
         # Create a new shot at the player's position
         shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
         # Calculate the shot's velocity
@@ -62,3 +72,6 @@ class Player(CircleShape):
         # Add the shot to the appropriate groups
         for container in Shot.containers:
             container.add(shot)
+
+        # Reset the cooldown timer
+        self.shoot_cooldown_timer = PLAYER_SHOOT_COOLDOWN

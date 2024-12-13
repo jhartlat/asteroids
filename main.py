@@ -63,7 +63,7 @@ def main():
         # Iterate over all drawable objects
         for sprite in drawable:
             sprite.draw(screen)
- 
+
         # Update the display
         pygame.display.flip()
 
