@@ -3,6 +3,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 def main():
@@ -29,6 +30,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
+    Shot.containers = (updatable, drawable)
 
     # Instantiate a player object
     x_pos = SCREEN_WIDTH / 2
@@ -61,7 +63,7 @@ def main():
         # Iterate over all drawable objects
         for sprite in drawable:
             sprite.draw(screen)
-
+ 
         # Update the display
         pygame.display.flip()
 
