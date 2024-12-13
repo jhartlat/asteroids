@@ -59,7 +59,7 @@ def main():
         for asteroid in asteroids:
             for bullet in updatable:
                 if isinstance(bullet, Shot) and asteroid.hasCollided(bullet):
-                    asteroid.kill()
+                    asteroid.split()
                     bullet.kill()
 
         # Iterate over all updatable objects
