@@ -49,12 +49,18 @@ def main():
         # Clear the screen
         pygame.Surface.fill(screen, 'black')
 
-
         # Check for collisions between the player and asteroids
         for asteroid in asteroids:
             if player.hasCollided(asteroid):
                 print("Game over!")
                 return
+
+        # Check for collisions between bullets and asteroids
+        for asteroid in asteroids:
+            for bullet in updatable:
+                if isinstance(bullet, Shot) and asteroid.hasCollided(bullet):
+                    asteroid.kill()
+                    bullet.kill()
 
         # Iterate over all updatable objects
         for sprite in updatable:
